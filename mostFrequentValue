@@ -1,0 +1,43 @@
+#include <vector>
+#include <unordered_map>
+
+using namespace std;
+
+int MostFrequent(const vector<int>& numbers)
+{
+    // Cas où le vector est vide
+    if (numbers.empty())
+    {
+        return -1;
+    }
+
+    // key = nombre
+    // value = nombre d'occurrences
+    unordered_map<int, int> NbrCount;
+
+    // 1. Compter combien de fois chaque nombre apparaît
+    for (int i = 0; i < numbers.size(); i++)
+    {
+        NbrCount[numbers[i]]++;
+    }
+
+    // Le premier nombre est notre meilleur candidat au départ
+    int bestNumber = numbers[0];
+    int bestCount = NbrCount[numbers[0]];
+
+    // 2. Parcourir numbers dans son ordre original
+    for (int i = 1; i < numbers.size(); i++)
+    {
+        // Combien de fois numbers[i] apparaît
+        int currentCount = NbrCount[numbers[i]];
+
+        // Si ce nombre apparaît PLUS souvent
+        if (currentCount > bestCount)
+        {
+            bestCount = currentCount;
+            bestNumber = numbers[i];
+        }
+    }
+
+    return bestNumber;
+}
